@@ -1,8 +1,8 @@
-# ros-foxy-desktop-gui
+# ros-foxy-desktop
 
-# docker build -t ros-foxy-gazebo-gui .
+# docker build -t ros-foxy-desktop .
 # xhost +si:localuser:root
-# docker run --runtime=nvidia -ti --rm -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix ros-foxy-gazebo-gui
+# docker run --runtime=nvidia -ti --name ros2 -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix ros-foxy-desktop
 
 FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu20.04
 
@@ -34,6 +34,7 @@ RUN sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org
 RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
 
 # install ros foxy desktop full
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y ros-foxy-desktop
 
 # bootstrap env
