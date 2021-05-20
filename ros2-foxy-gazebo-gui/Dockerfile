@@ -1,12 +1,16 @@
-# ros-melodic-desktop-full
+# ros-foxy-desktop-gui
 
-# docker build -t ros-melodic-desktop-full .
+# docker build -t ros-foxy-gazebo-gui .
 # xhost +si:localuser:root
-# docker run --runtime=nvidia -ti --rm -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix ros-melodic-desktop-full
+# docker run --runtime=nvidia -ti --rm -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix ros-foxy-gazebo-gui
 
 FROM nvidia/opengl:1.0-glvnd-runtime-ubuntu20.04
 
 ENV NVIDIA_DRIVER_CAPABILITIES ${NVIDIA_DRIVER_CAPABILITIES},display
+
+# Configure keyboard options
+# See: https://github.com/phusion/baseimage-docker/issues/342#issuecomment-281315763
+COPY ./keyboard /etc/default/keyboard
 
 # setup timezone
 RUN echo 'Etc/UTC' > /etc/timezone && \
